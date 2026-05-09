@@ -1912,18 +1912,23 @@ document.querySelectorAll('.case-item').forEach(item => {
 });
 
 // Mobile drawer
+// Mobile drawer
 const hamburger = document.getElementById('hamburger');
 const drawer = document.getElementById('mobileDrawer');
 const overlay = document.getElementById('drawerOverlay');
-function toggleDrawer() {
-  hamburger.classList.toggle('active');
-  drawer.classList.toggle('active');
-  overlay.classList.toggle('active');
-  document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+
+if (hamburger && drawer && overlay) {
+  function toggleDrawer() {
+    hamburger.classList.toggle('active');
+    drawer.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+  }
+
+  hamburger.addEventListener('click', toggleDrawer);
+  overlay.addEventListener('click', toggleDrawer);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleDrawer));
 }
-hamburger.addEventListener('click', toggleDrawer);
-overlay.addEventListener('click', toggleDrawer);
-drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleDrawer));
 
 // ★★★ Section Accordion ★★★
 document.querySelectorAll('.section-acc-trigger').forEach(trigger => {
