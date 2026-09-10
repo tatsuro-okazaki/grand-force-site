@@ -1350,7 +1350,40 @@ img { max-width: 100%; display: block; }
   .preparing-block { padding: 56px 24px; }
   .preparing-text { font-size: 18px; }
 }
-
+/* ===== HERO / Our Story 刷新 ===== */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.04fr 1fr;background:var(--color-bg);align-items:stretch}
+.hero .hero-bg{display:none}
+.hero-container{display:contents}
+.hero-tx{display:flex;flex-direction:column;justify-content:center;padding:0 clamp(30px,5vw,96px);position:relative;max-width:none}
+.hero-eyebrow{margin-bottom:24px}
+.hero-rule{width:48px;height:1px;background:var(--color-accent);margin-bottom:32px}
+.hero-title{font-size:clamp(32px,4.4vw,58px);line-height:1.46;letter-spacing:.06em;margin-bottom:30px}
+.hero-lead{font-size:clamp(13.5px,1.05vw,16px);line-height:2.3;max-width:25em;margin-bottom:0}
+.hero-visual{aspect-ratio:auto;position:relative;overflow:hidden;background:#EDF0F4;display:block}
+.hero-visual::before,.hero-visual::after{content:none}
+.hero-visual img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-vlabel{position:absolute;right:22px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:var(--font-display);letter-spacing:.42em;font-size:12px;color:#9aa6b6}
+.hero-scroll{position:absolute;left:clamp(30px,5vw,96px);bottom:34px;font-family:var(--font-display);font-style:italic;font-size:13px;color:#9aa6b6;display:flex;align-items:center;gap:12px}
+.hero-scroll::after{content:"";width:38px;height:1px;background:#9aa6b6}
+.brand-section{background:var(--color-white);padding:0}
+.brand-section .container{max-width:none;padding:0}
+.brand-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:88vh;align-items:stretch}
+.brand-visual{aspect-ratio:auto;position:relative;overflow:hidden;background:#EDF0F4}
+.brand-visual::before,.brand-visual::after{content:none}
+.brand-visual img{width:100%;height:100%;object-fit:cover}
+.brand-content{display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,6vw,104px)}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-visual{order:1;aspect-ratio:16/10}
+  .hero-visual img{object-position:center 38%}
+  .hero-tx{order:2;padding:44px 26px 56px}
+  .hero-title{font-size:clamp(27px,7.2vw,36px);line-height:1.5;margin-bottom:20px}
+  .hero-lead{font-size:13.5px;line-height:2.15}
+  .hero-vlabel,.hero-scroll{display:none}
+  .brand-grid{grid-template-columns:1fr;min-height:auto}
+  .brand-visual{order:1;aspect-ratio:16/11}
+  .brand-content{order:2;padding:48px 26px 60px}
+}
 </style>
 </head>
 <body>
@@ -1371,28 +1404,16 @@ img { max-width: 100%; display: block; }
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-container">
-    <div class="hero-content">
-      <div class="hero-eyebrow">Cheer Uniform & Goods OEM</div>
-      <h1 class="hero-title">
-        <em>&ldquo;日常&rdquo;</em>に<br>
-        デザインという<br>
-        価値を
-      </h1>
-      <p class="hero-lead">
-        チア・バレエのオリジナルデザイングッズを制作。<br>
-        ラインストーンやホログラムで、特別な一枚に。
-      </p>
-      <div class="hero-notice">
-        <p class="notice-eyebrow">— Now Preparing —</p>
-        <p class="notice-text">
-          現在、サービス公開に向けて準備中です。<br>
-          詳細はもう少々お待ちください。
-        </p>
-      </div>
-    </div>
-    <div class="hero-visual"></div>
+  <div class="hero-tx">
+    <div class="hero-eyebrow">Cheer Uniform &amp; Goods OEM</div>
+    <div class="hero-rule"></div>
+    <h1 class="hero-title"><em>&ldquo;日常&rdquo;</em>に<br>デザインという<br>価値を</h1>
+    <p class="hero-lead">チア・バレエのオリジナルデザイングッズを制作。ラインストーンやホログラムで、特別な一枚に。</p>
+    <div class="hero-scroll">Scroll</div>
+  </div>
+  <div class="hero-visual">
+    <img src="images/hero.webp" alt="ラインストーン装飾の完成品">
+    <div class="hero-vlabel">Cheer · Ballet · Dance</div>
   </div>
 </section>
 
@@ -1409,22 +1430,18 @@ img { max-width: 100%; display: block; }
 <section class="section brand-section" id="brand">
   <div class="container">
     <div class="brand-grid">
-      <div class="brand-visual img-ph anim"></div>
-      <div class="brand-content anim">
-        <div class="section-eyebrow">Our Story</div>
-        <div class="section-divider" style="margin: 0 0 40px;"></div>
+      <div class="brand-visual">
+        <img src="images/brand.webp" alt="デザインスケッチと素材">
+      </div>
+      <div class="brand-content">
+        <div class="section-eyebrow" style="text-align:left;margin-bottom:18px;">Our Story</div>
+        <div class="section-divider" style="margin:0 0 40px;"></div>
         <div class="brand-poem">
           <p class="poem-line">可愛いチュチュを繕えば、思わず回りたくなる。</p>
           <p class="poem-line">ユニフォームに袖を通せば、気持ちが引き締まる。</p>
-          <p class="poem-line poem-emphasis">
-            それは、踊る私たちの<em>"日常"</em>。<br>
-            そのすべてに、デザインという価値を。
-          </p>
+          <p class="poem-line poem-emphasis">それは、踊る私たちの<em>&ldquo;日常&rdquo;</em>。<br>そのすべてに、デザインという価値を。</p>
           <div class="poem-divider"></div>
-          <p class="poem-line poem-tagline">
-            <span class="poem-bracket">「グラン」</span>ジュテのように、高く。<br>
-            <span class="poem-bracket">「グラン」</span>プリエのように、より深く。
-          </p>
+          <p class="poem-line poem-tagline"><span class="poem-bracket">「グラン」</span>ジュテのように、高く。<br><span class="poem-bracket">「グラン」</span>プリエのように、より深く。</p>
         </div>
       </div>
     </div>
