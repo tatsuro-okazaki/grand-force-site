@@ -1388,6 +1388,13 @@ img { max-width: 100%; display: block; }
 .usp-card { padding: 34px 28px 32px; }
 .usp-card p { text-align: left; }
 .usp-num { margin-bottom: 12px; }
+
+.usp-icon { width: 150px; height: 150px; margin: 0 auto 6px; }
+.usp-icon img { width: 100%; height: 100%; object-fit: contain; }
+@media (max-width: 768px) {
+  .acc-usp-list .usp-icon { width: 64px; height: 64px; margin: 0; }
+}
+  
 </style>
 </head>
 <body>
@@ -1462,6 +1469,10 @@ img { max-width: 100%; display: block; }
     <div class="section-divider"></div>
     <div class="usp-grid">
       <div class="usp-card anim">
+<div class="usp-card anim">
+  <div class="usp-icon"><img src="images/usp1.webp" alt="" loading="lazy"></div>
+  <div class="usp-num">01</div>
+  <h3>フルカスタムOEM</h3>      
         <div class="usp-num">01</div>
         <h3>フルカスタムOEM</h3>
         <p>サイズ・カラー・デザインからホログラムやラインストーンの配置まで、すべてを自由にカスタマイズ。チームのコンセプトを余すところなく形に。</p>
