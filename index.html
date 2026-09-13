@@ -1417,6 +1417,11 @@ img { max-width: 100%; display: block; }
   .insta-follow{padding:11px 26px;font-size:12px}
   .insta-head{margin-bottom:24px;gap:12px}
 }
+  /* スマホUSPカード：アイコン・番号・テキストの3列 */
+@media (max-width: 768px) {
+  .acc-usp-list .usp-card { grid-template-columns: auto auto 1fr; align-items: center; }
+  .acc-usp-list .usp-icon { margin: 0; }
+}
 </style>
 </head>
 <body>
@@ -1484,6 +1489,9 @@ img { max-width: 100%; display: block; }
 <!-- ============================================
      USP
      ============================================ -->
+<!-- ============================================
+     USP
+     ============================================ -->
 <section class="section alt has-acc">
   <div class="container">
     <div class="section-eyebrow anim">Our Strengths</div>
@@ -1503,7 +1511,7 @@ img { max-width: 100%; display: block; }
         <p>ラインストーンは一粒一粒、ホログラム加工は経験豊富な職人が手作業で仕上げます。機械では出せない繊細さと美しい仕上がりをお約束します。</p>
       </div>
       <div class="usp-card anim">
-　　　　 <div class="usp-icon"><img src="images/usp3.webp" alt="" loading="lazy"></div>
+        <div class="usp-icon"><img src="images/usp3.webp" alt="" loading="lazy"></div>
         <div class="usp-num">03</div>
         <h3>伴走するサポート</h3>
         <p>初めての方にもわかりやすく、ヒアリング・デザイン提案・進捗共有まで丁寧にサポート。納品後のサイズ追加・リピート対応も承ります。</p>
@@ -1526,6 +1534,7 @@ img { max-width: 100%; display: block; }
       <div class="section-acc-inner">
         <div class="acc-usp-list">
           <div class="usp-card">
+            <div class="usp-icon"><img src="images/usp1.webp" alt="" loading="lazy"></div>
             <div class="usp-num">01</div>
             <div>
               <h3>フルカスタムOEM</h3>
@@ -1533,6 +1542,7 @@ img { max-width: 100%; display: block; }
             </div>
           </div>
           <div class="usp-card">
+            <div class="usp-icon"><img src="images/usp2.webp" alt="" loading="lazy"></div>
             <div class="usp-num">02</div>
             <div>
               <h3>職人による手仕事</h3>
@@ -1540,6 +1550,7 @@ img { max-width: 100%; display: block; }
             </div>
           </div>
           <div class="usp-card">
+            <div class="usp-icon"><img src="images/usp3.webp" alt="" loading="lazy"></div>
             <div class="usp-num">03</div>
             <div>
               <h3>伴走するサポート</h3>
@@ -1790,17 +1801,20 @@ img { max-width: 100%; display: block; }
 <!-- ============================================
      CASE GALLERY
      ============================================ -->
+<!-- ============================================
+     CASE GALLERY
+     ============================================ -->
 <section class="section has-acc" id="case">
   <div class="container">
     <div class="section-eyebrow anim">Works</div>
     <h2 class="section-title anim">制作事例</h2>
     <div class="section-divider"></div>
     <p class="section-lead anim">
-      これまでの制作事例を順次公開予定です。<br>
-      正式公開までしばらくお待ちください。
+      制作した作品はInstagramで随時公開中です。<br>
+      チームごとのデザイン事例をぜひご覧ください。
     </p>
 
-        <div class="case-content">
+    <div class="case-content">
       <div class="insta-head anim">
         <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-account">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
@@ -1839,14 +1853,30 @@ img { max-width: 100%; display: block; }
       <div class="section-acc-body">
         <div class="section-acc-inner">
           <p class="acc-lead">
-            これまでの制作事例を順次公開予定です。正式公開までしばらくお待ちください。
+            制作した作品はInstagramで随時公開中です。タップで投稿をご覧いただけます。
           </p>
 
-          <div class="preparing-block">
-            <div class="preparing-icon"></div>
-            <p class="preparing-text">Coming Soon</p>
-            <p class="preparing-sub">事例ギャラリーは現在準備中です</p>
+          <div class="insta-head">
+            <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-account">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4.2"/>
+                <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
+              </svg>
+              <span class="insta-handle">@gran.d_shop</span>
+            </a>
+            <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-follow">Follow us</a>
           </div>
+
+          <div class="insta-scroll">
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta1.webp" alt="バッグタグ制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta2.webp" alt="ぬいぐるみ衣装制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta3.webp" alt="タンクトップ制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta4.webp" alt="巾着袋制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta5.webp" alt="スウェット制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta6.webp" alt="缶バッジ制作事例" loading="lazy"></a>
+          </div>
+          <p class="insta-note">← 横にスクロールできます</p>
         </div>
       </div>
     </div>
@@ -1907,10 +1937,10 @@ img { max-width: 100%; display: block; }
         正式オープン・お問い合わせ受付の開始は、<br>
         本サイトおよび公式SNSにて改めてご案内いたします。
       </p>
-         <p class="section-lead anim">
-      制作した作品はInstagramで随時公開中です。<br>
-      チームごとのデザイン事例をぜひご覧ください。
-    </p>
+      <p class="cta-note" style="margin-top:32px;">
+        ※ ご質問・先行のお問い合わせをご希望の方は、<br>
+        準備中につき個別対応となりますのでご了承ください。
+      </p>
     </div>
   </div>
 </section>
