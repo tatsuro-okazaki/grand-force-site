@@ -109,6 +109,17 @@ img { max-width: 100%; display: block; }
 .nav-pc .nav-cta:hover { background: var(--color-accent-dark); }
 
 /* Mobile header */
+.header-right { display: flex; align-items: center; gap: 18px; }
+.header-sns { display: flex; align-items: center; gap: 14px; }
+.header-sns a {
+  display: inline-flex;
+  width: 34px; height: 34px;
+  align-items: center; justify-content: center;
+  color: var(--color-accent);
+  transition: opacity 0.25s ease;
+}
+.header-sns a:hover { opacity: 0.55; }
+.header-sns svg { width: 22px; height: 22px; display: block; }
 .mobile-header-right {
   display: none;
   align-items: center;
@@ -502,26 +513,6 @@ img { max-width: 100%; display: block; }
 }
 .usp-card p { font-size: 13.5px; color: var(--color-text-light); line-height: 2; }
 
-/* Lineup */
-.lineup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 28px; }
-.lineup-card { background: var(--color-white); transition: all 0.3s ease; }
-.lineup-card:hover { transform: translateY(-4px); }
-.lineup-img { aspect-ratio: 4 / 5; margin-bottom: 18px; }
-.lineup-card h4 {
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  margin-bottom: 4px;
-}
-.lineup-en {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 12px;
-  color: var(--color-accent);
-  letter-spacing: 0.1em;
-}
-
 /* Order Flow */
 .flow-detail { display: grid; grid-template-columns: 1fr; gap: 0; max-width: 760px; margin: 0 auto; }
 .flow-step {
@@ -582,7 +573,46 @@ img { max-width: 100%; display: block; }
 }
 
 /* Body Types */
-.body-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.body-grid {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 8px 0 24px; /* hover時の浮き・影が切れないように */
+}
+.body-grid::-webkit-scrollbar { display: none; }
+.body-grid .body-card { flex: 0 0 calc((100% - 48px) / 3); scroll-snap-align: start; }
+.body-nav { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 8px; }
+.body-nav-btn {
+  width: 44px; height: 44px;
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+  color: var(--color-accent);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.body-nav-btn:hover:not(:disabled) { border-color: var(--color-accent); background: var(--color-accent); color: var(--color-white); }
+.body-nav-btn:disabled { opacity: 0.3; cursor: default; }
+.body-custom {
+  max-width: 760px;
+  margin: 48px auto 0;
+  padding: 32px 36px;
+  background: var(--color-bg-warm);
+  border-left: 2px solid var(--color-accent);
+}
+.body-custom-title {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+.body-custom-text { font-size: 13.5px; line-height: 2; color: var(--color-text-light); }
+.body-nav-count { font-family: var(--font-display); font-style: italic; font-size: 13px; letter-spacing: 0.12em; color: var(--color-text-muted); min-width: 64px; text-align: center; }
 .body-card {
   background: var(--color-white);
   border: 1px solid var(--color-line);
@@ -595,6 +625,9 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 8px 32px rgba(196, 149, 106, 0.08);
 }
 .body-card-image { aspect-ratio: 1 / 1; margin-bottom: 20px; }
+.body-card-image img { width: 100%; height: 100%; object-fit: contain; display: block; }
+/* ジャージ画像のみ背景が紙色（RGB 247〜255）のため白に寄せる */
+.body-card-image img.is-paper-bg { filter: brightness(1.04); }
 .body-card h4 {
   font-family: var(--font-body);
   font-size: 15px;
@@ -851,6 +884,9 @@ img { max-width: 100%; display: block; }
   .nav-pc { display: none; }
   .mobile-header-right { display: flex; }
   #header { padding: 14px 0; }
+  .header-right { gap: 10px; }
+  .header-sns { gap: 6px; }
+  .header-sns svg { width: 20px; height: 20px; }
   .logo-img-header { height: 26px; }
 
   /* Hero ─ コンパクト化 */
@@ -920,9 +956,10 @@ img { max-width: 100%; display: block; }
   .section.has-acc > .container > .section-lead,
   .section.has-acc > .container > .brand-grid,
   .section.has-acc > .container > .usp-grid,
-  .section.has-acc > .container > .lineup-grid,
   .section.has-acc > .container > .flow-detail,
   .section.has-acc > .container > .body-grid,
+  .section.has-acc > .container > .body-nav,
+  .section.has-acc > .container > .body-custom,
   .section.has-acc > .container > .rules-grid,
   .section.has-acc > .container > .case-tabs,
   .section.has-acc > .container > .case-grid,
@@ -1086,23 +1123,6 @@ img { max-width: 100%; display: block; }
     line-height: 1.85;
   }
 
-  /* Lineup - 2列グリッド */
-  .acc-lineup-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px 10px;
-  }
-  .acc-lineup-grid .lineup-card { background: transparent; }
-  .acc-lineup-grid .lineup-img {
-    aspect-ratio: 4 / 5;
-    margin-bottom: 8px;
-  }
-  .acc-lineup-grid .lineup-card h4 {
-    font-size: 12px;
-    margin-bottom: 2px;
-  }
-  .acc-lineup-grid .lineup-en { font-size: 10px; }
-
   /* Flow - コンパクト縦積み */
   .acc-flow {
     margin: 0 -4px;
@@ -1140,6 +1160,9 @@ img { max-width: 100%; display: block; }
   .acc-body-grid .body-card h4 { font-size: 13px; }
   .acc-body-grid .body-card-en { font-size: 10.5px; margin-bottom: 8px; }
   .acc-body-grid .body-card-spec { font-size: 11px; }
+  .acc-body-custom { margin-top: 16px; padding: 18px 18px; }
+  .acc-body-custom .body-custom-title { font-size: 13.5px; margin-bottom: 8px; }
+  .acc-body-custom .body-custom-text { font-size: 12px; line-height: 1.9; }
 
   /* Rules - 縦積み */
   .acc-rules { display: flex; flex-direction: column; gap: 12px; }
@@ -1430,10 +1453,28 @@ img { max-width: 100%; display: block; }
 <header id="header">
   <div class="container">
     <a href="index.html" class="logo-link"><img src="data:image/jpeg;base64,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" alt="gran.d" class="logo-img-header"></a>
-    <div class="mobile-header-right">
+    <div class="header-right">
+      <div class="header-sns">
+        <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4.2"/>
+            <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <!-- TODO: LINE公式アカウントのURLに差し替え -->
+        <a href="#" target="_blank" rel="noopener" aria-label="LINE">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M12 3.2c-5.3 0-9.5 3.4-9.5 7.6 0 3.8 3.3 6.9 7.8 7.5.3.1.7.2.8.5.1.2 0 .6 0 .8l-.1.8c0 .2-.2.9.8.5s5.6-3.3 7.6-5.6c1.4-1.5 2.1-3 2.1-4.5 0-4.2-4.2-7.6-9.5-7.6z" stroke-linejoin="round"/>
+            <path d="M6.6 8.9v3.6h1.9M9.8 8.9v3.6M11.6 12.5V8.9l2.3 3.6V8.9M17.2 8.9h-1.8v3.6h1.8M15.4 10.7h1.7" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+      <div class="mobile-header-right">
       <button class="hamburger" id="hamburger" aria-label="メニュー">
         <span></span><span></span><span></span>
       </button>
+      </div>
     </div>
   </div>
 </header>
@@ -1564,54 +1605,81 @@ img { max-width: 100%; display: block; }
 </section>
 
 <!-- ============================================
-     LINEUP
+     CASE GALLERY
      ============================================ -->
-<section class="section has-acc" id="lineup">
+<section class="section has-acc" id="case">
   <div class="container">
-    <div class="section-eyebrow anim">Lineup</div>
-    <h2 class="section-title anim">取り扱いアイテム</h2>
+    <div class="section-eyebrow anim">Works</div>
+    <h2 class="section-title anim">制作事例</h2>
     <div class="section-divider"></div>
     <p class="section-lead anim">
-      ユニフォームから普段使いのグッズまで、チームを彩るアイテムを幅広く取り扱っています。<br>
-      下記以外のアイテムもご相談に応じて対応可能です。
+      制作した作品はInstagramで随時公開中です。<br>
+      チームごとのデザイン事例をぜひご覧ください。
     </p>
-    <div class="lineup-grid">
-      <div class="lineup-card anim"><div class="lineup-img img-ph"></div><h4>タンクトップ</h4><div class="lineup-en">Tank Top</div></div>
-      <div class="lineup-card anim"><div class="lineup-img img-ph"></div><h4>Tシャツ</h4><div class="lineup-en">T-Shirt</div></div>
-      <div class="lineup-card anim"><div class="lineup-img img-ph"></div><h4>スウェット</h4><div class="lineup-en">Sweatshirt</div></div>
-      <div class="lineup-card anim"><div class="lineup-img img-ph"></div><h4>ショートパンツ</h4><div class="lineup-en">Shorts</div></div>
-      <div class="lineup-card anim"><div class="lineup-img img-ph"></div><h4>トートバッグ</h4><div class="lineup-en">Tote Bag</div></div>
-      <div class="lineup-card anim"><div class="lineup-img img-ph"></div><h4>缶バッジ</h4><div class="lineup-en">Pin Badge</div></div>
-      <div class="lineup-card anim"><div class="lineup-img img-ph"></div><h4>バッグタグ</h4><div class="lineup-en">Bag Tag</div></div>
-      <div class="lineup-card anim"><div class="lineup-img img-ph"></div><h4>ぬいぐるみ衣装</h4><div class="lineup-en">Plush Costume</div></div>
-      <div class="lineup-card anim"><div class="lineup-img img-ph"></div><h4>その他グッズ</h4><div class="lineup-en">Other Goods</div></div>
-    </div>
-  </div>
 
-  <div class="section-acc">
-    <button class="section-acc-trigger" type="button">
-      <span class="section-acc-num">02</span>
-      <span class="section-acc-text">
-        <span class="section-acc-eyebrow">Lineup</span>
-        <span class="section-acc-title">取り扱いアイテム</span>
-      </span>
-      <span class="section-acc-icon" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </span>
-    </button>
-    <div class="section-acc-body">
-      <div class="section-acc-inner">
-        <p class="acc-lead">ユニフォーム〜普段使いのグッズまで幅広く対応。下記以外もご相談ください。</p>
-        <div class="acc-lineup-grid">
-          <div class="lineup-card"><div class="lineup-img img-ph"></div><h4>タンクトップ</h4><div class="lineup-en">Tank Top</div></div>
-          <div class="lineup-card"><div class="lineup-img img-ph"></div><h4>Tシャツ</h4><div class="lineup-en">T-Shirt</div></div>
-          <div class="lineup-card"><div class="lineup-img img-ph"></div><h4>スウェット</h4><div class="lineup-en">Sweatshirt</div></div>
-          <div class="lineup-card"><div class="lineup-img img-ph"></div><h4>ショートパンツ</h4><div class="lineup-en">Shorts</div></div>
-          <div class="lineup-card"><div class="lineup-img img-ph"></div><h4>トートバッグ</h4><div class="lineup-en">Tote Bag</div></div>
-          <div class="lineup-card"><div class="lineup-img img-ph"></div><h4>缶バッジ</h4><div class="lineup-en">Pin Badge</div></div>
-          <div class="lineup-card"><div class="lineup-img img-ph"></div><h4>バッグタグ</h4><div class="lineup-en">Bag Tag</div></div>
-          <div class="lineup-card"><div class="lineup-img img-ph"></div><h4>ぬいぐるみ衣装</h4><div class="lineup-en">Plush Costume</div></div>
-          <div class="lineup-card"><div class="lineup-img img-ph"></div><h4>その他グッズ</h4><div class="lineup-en">Other Goods</div></div>
+    <div class="case-content">
+      <div class="insta-head anim">
+        <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4.2"/>
+            <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
+          </svg>
+          <span class="insta-handle">@gran.d_shop</span>
+        </a>
+        <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-follow">Follow us</a>
+      </div>
+
+      <div class="insta-scroll anim">
+        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta1.webp" alt="バッグタグ制作事例" loading="lazy"></a>
+        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta2.webp" alt="ぬいぐるみ衣装制作事例" loading="lazy"></a>
+        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta3.webp" alt="タンクトップ制作事例" loading="lazy"></a>
+        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta4.webp" alt="巾着袋制作事例" loading="lazy"></a>
+        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta5.webp" alt="スウェット制作事例" loading="lazy"></a>
+        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta6.webp" alt="缶バッジ制作事例" loading="lazy"></a>
+      </div>
+      <p class="insta-note">← 横にスクロールできます ／ タップで投稿へ</p>
+    </div>
+
+    <div class="section-acc">
+      <button class="section-acc-trigger" type="button">
+        <span class="section-acc-num">02</span>
+        <span class="section-acc-text">
+          <span class="section-acc-eyebrow">Works</span>
+          <span class="section-acc-title">制作事例</span>
+        </span>
+        <span class="section-acc-icon" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+
+      <div class="section-acc-body">
+        <div class="section-acc-inner">
+          <p class="acc-lead">
+            制作した作品はInstagramで随時公開中です。タップで投稿をご覧いただけます。
+          </p>
+
+          <div class="insta-head">
+            <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-account">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4.2"/>
+                <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
+              </svg>
+              <span class="insta-handle">@gran.d_shop</span>
+            </a>
+            <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-follow">Follow us</a>
+          </div>
+
+          <div class="insta-scroll">
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta1.webp" alt="バッグタグ制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta2.webp" alt="ぬいぐるみ衣装制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta3.webp" alt="タンクトップ制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta4.webp" alt="巾着袋制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta5.webp" alt="スウェット制作事例" loading="lazy"></a>
+            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta6.webp" alt="缶バッジ制作事例" loading="lazy"></a>
+          </div>
+          <p class="insta-note">← 横にスクロールできます</p>
         </div>
       </div>
     </div>
@@ -1676,14 +1744,29 @@ img { max-width: 100%; display: block; }
     <h2 class="section-title anim">加工前ボディの種類</h2>
     <div class="section-divider"></div>
     <p class="section-lead anim">ベースとなるアイテムは、シルエット・素材・カラーバリエーションを多数ご用意しています。<br>コンセプトや着用シーンに合わせて最適なボディをお選びください。</p>
-    <div style="text-align:center; margin-bottom:40px;" class="anim"><span class="preview-label">※ 元情報をもらい次第、実際の品番・サイズ・カラーで差し替え予定</span></div>
     <div class="body-grid">
-      <div class="body-card anim"><div class="body-card-image img-ph"></div><h4>タンクトップ</h4><div class="body-card-en">Tank Top</div><dl class="body-card-spec"><dt>Size</dt><dd>XS / S / M / L / XL / XXL</dd><dt>Color</dt><dd>White / Black / Navy / Red / Pink / Lavender</dd><dt>Material</dt><dd>綿 100% / ポリ混紡</dd></dl></div>
-      <div class="body-card anim"><div class="body-card-image img-ph"></div><h4>Tシャツ</h4><div class="body-card-en">T-Shirt</div><dl class="body-card-spec"><dt>Size</dt><dd>120 / 130 / 140 / 150 / S / M / L / XL</dd><dt>Color</dt><dd>White / Black / Heather Gray / etc.</dd><dt>Material</dt><dd>綿 100% (5.6oz)</dd></dl></div>
-      <div class="body-card anim"><div class="body-card-image img-ph"></div><h4>スウェット</h4><div class="body-card-en">Sweatshirt</div><dl class="body-card-spec"><dt>Size</dt><dd>S / M / L / XL</dd><dt>Color</dt><dd>White / Black / Gray / Navy</dd><dt>Material</dt><dd>裏起毛 / 裏毛</dd></dl></div>
-      <div class="body-card anim"><div class="body-card-image img-ph"></div><h4>ショートパンツ</h4><div class="body-card-en">Shorts</div><dl class="body-card-spec"><dt>Size</dt><dd>XS / S / M / L / XL</dd><dt>Color</dt><dd>Black / Navy / White</dd><dt>Material</dt><dd>ポリエステル / ストレッチ素材</dd></dl></div>
-      <div class="body-card anim"><div class="body-card-image img-ph"></div><h4>キャップ</h4><div class="body-card-en">Cap</div><dl class="body-card-spec"><dt>Size</dt><dd>FREE（アジャスター付）</dd><dt>Color</dt><dd>Black / White / Navy / Pink</dd><dt>Material</dt><dd>綿 / ポリエステル</dd></dl></div>
-      <div class="body-card anim"><div class="body-card-image img-ph"></div><h4>トートバッグ</h4><div class="body-card-en">Tote Bag</div><dl class="body-card-spec"><dt>Size</dt><dd>S / M / L</dd><dt>Color</dt><dd>Natural / Black / Navy</dd><dt>Material</dt><dd>キャンバス / コットン</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img src="images/body/body-uniform-short.webp" alt="ユニフォーム（半袖）（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>ユニフォーム（半袖）</h4><div class="body-card-en">Uniform / Short Sleeve</div><dl class="body-card-spec"><dt>Size</dt><dd>110 / 120 / 130 / 140 / 150 / S / M / L / XL</dd><dt>Material</dt><dd>ポリエステル / ストレッチ素材</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img src="images/body/body-uniform-long.webp" alt="ユニフォーム（長袖）（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>ユニフォーム（長袖）</h4><div class="body-card-en">Uniform / Long Sleeve</div><dl class="body-card-spec"><dt>Size</dt><dd>110 / 120 / 130 / 140 / 150 / S / M / L / XL</dd><dt>Material</dt><dd>ポリエステル / ストレッチ素材</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img src="images/body/body-tanktop.webp" alt="タンクトップ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>タンクトップ</h4><div class="body-card-en">Tank Top</div><dl class="body-card-spec"><dt>Size</dt><dd>XS / S / M / L / XL / XXL</dd><dt>Material</dt><dd>綿 100% / ポリ混紡</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img src="images/body/body-tshirt.webp" alt="Tシャツ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>Tシャツ</h4><div class="body-card-en">T-Shirt</div><dl class="body-card-spec"><dt>Size</dt><dd>120 / 130 / 140 / 150 / S / M / L / XL</dd><dt>Material</dt><dd>綿 100% (5.6oz)</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img src="images/body/body-shorts.webp" alt="ハーフパンツ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>ハーフパンツ</h4><div class="body-card-en">Half Pants</div><dl class="body-card-spec"><dt>Size</dt><dd>XS / S / M / L / XL</dd><dt>Material</dt><dd>ポリエステル / ストレッチ素材</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img src="images/body/body-sweat.webp" alt="スウェット（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>スウェット</h4><div class="body-card-en">Sweatshirt</div><dl class="body-card-spec"><dt>Size</dt><dd>S / M / L / XL</dd><dt>Material</dt><dd>裏起毛 / 裏毛</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img class="is-paper-bg" src="images/body/body-jersey.webp" alt="ジャージ上下（加工前ボディ）" width="1120" height="1073" loading="lazy"></div><h4>ジャージ上下</h4><div class="body-card-en">Jersey Set</div><dl class="body-card-spec"><dt>Size</dt><dd>120 / 130 / 140 / 150 / S / M / L / XL / XXL</dd><dt>Material</dt><dd>ポリエステル（ジャージ素材）</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img src="images/body/body-cap.webp" alt="キャップ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>キャップ</h4><div class="body-card-en">Cap</div><dl class="body-card-spec"><dt>Size</dt><dd>FREE（アジャスター付）</dd><dt>Material</dt><dd>綿 / ポリエステル</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img src="images/body/body-bag.webp" alt="トートバッグ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>トートバッグ</h4><div class="body-card-en">Tote Bag</div><dl class="body-card-spec"><dt>Size</dt><dd>S / M / L</dd><dt>Material</dt><dd>キャンバス / コットン</dd></dl></div>
+      <div class="body-card anim"><div class="body-card-image"><img src="images/body/body-other.webp" alt="その他グッズ（加工前ボディ）" width="800" height="1000" loading="lazy"></div><h4>その他グッズ</h4><div class="body-card-en">Other Goods</div><dl class="body-card-spec"><dt>Item</dt><dd>ポンポン / マフラータオル / 缶バッジ / リュック / ぬいぐるみ 他</dd></dl></div>
+    </div>
+    <div class="body-nav" aria-label="加工前ボディの切り替え">
+      <button class="body-nav-btn" type="button" data-dir="-1" aria-label="前へ">←</button>
+      <span class="body-nav-count"></span>
+      <button class="body-nav-btn" type="button" data-dir="1" aria-label="次へ">→</button>
+    </div>
+    <div class="body-custom anim">
+      <p class="body-custom-title">掲載外のアイテム・カラー・素材も、まずはご相談ください</p>
+      <p class="body-custom-text">
+        上記は代表的なボディの一例です。カラーは自由にお作りいただけるほか、素材もご要望に合わせて個別に対応いたします。<br>
+        ここに掲載のないアイテムも制作できる場合がございますので、イメージがあればお気軽にお問い合わせください。
+      </p>
     </div>
   </div>
 
@@ -1701,14 +1784,21 @@ img { max-width: 100%; display: block; }
     <div class="section-acc-body">
       <div class="section-acc-inner">
         <p class="acc-lead">シルエット・素材・カラーを多数ご用意。コンセプトに合わせて最適な一着を。</p>
-        <span class="preview-label-mini">※ 実際の品番で差し替え予定</span>
         <div class="acc-body-grid">
-          <div class="body-card"><div class="body-card-image img-ph"></div><h4>タンクトップ</h4><div class="body-card-en">Tank Top</div><dl class="body-card-spec"><dt>Size</dt><dd>XS〜XXL</dd><dt>Color</dt><dd>White / Black / Navy 他</dd><dt>Material</dt><dd>綿 100% / ポリ混紡</dd></dl></div>
-          <div class="body-card"><div class="body-card-image img-ph"></div><h4>Tシャツ</h4><div class="body-card-en">T-Shirt</div><dl class="body-card-spec"><dt>Size</dt><dd>120〜XL</dd><dt>Color</dt><dd>White / Black / Gray 他</dd><dt>Material</dt><dd>綿 100% (5.6oz)</dd></dl></div>
-          <div class="body-card"><div class="body-card-image img-ph"></div><h4>スウェット</h4><div class="body-card-en">Sweatshirt</div><dl class="body-card-spec"><dt>Size</dt><dd>S〜XL</dd><dt>Color</dt><dd>White / Black / Gray / Navy</dd><dt>Material</dt><dd>裏起毛 / 裏毛</dd></dl></div>
-          <div class="body-card"><div class="body-card-image img-ph"></div><h4>ショートパンツ</h4><div class="body-card-en">Shorts</div><dl class="body-card-spec"><dt>Size</dt><dd>XS〜XL</dd><dt>Color</dt><dd>Black / Navy / White</dd><dt>Material</dt><dd>ポリエステル / ストレッチ</dd></dl></div>
-          <div class="body-card"><div class="body-card-image img-ph"></div><h4>キャップ</h4><div class="body-card-en">Cap</div><dl class="body-card-spec"><dt>Size</dt><dd>FREE</dd><dt>Color</dt><dd>Black / White / Navy / Pink</dd><dt>Material</dt><dd>綿 / ポリエステル</dd></dl></div>
-          <div class="body-card"><div class="body-card-image img-ph"></div><h4>トートバッグ</h4><div class="body-card-en">Tote Bag</div><dl class="body-card-spec"><dt>Size</dt><dd>S / M / L</dd><dt>Color</dt><dd>Natural / Black / Navy</dd><dt>Material</dt><dd>キャンバス / コットン</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img src="images/body/body-uniform-short.webp" alt="ユニフォーム（半袖）（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>ユニフォーム（半袖）</h4><div class="body-card-en">Uniform / Short Sleeve</div><dl class="body-card-spec"><dt>Size</dt><dd>110〜XL</dd><dt>Material</dt><dd>ポリエステル / ストレッチ素材</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img src="images/body/body-uniform-long.webp" alt="ユニフォーム（長袖）（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>ユニフォーム（長袖）</h4><div class="body-card-en">Uniform / Long Sleeve</div><dl class="body-card-spec"><dt>Size</dt><dd>110〜XL</dd><dt>Material</dt><dd>ポリエステル / ストレッチ素材</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img src="images/body/body-tanktop.webp" alt="タンクトップ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>タンクトップ</h4><div class="body-card-en">Tank Top</div><dl class="body-card-spec"><dt>Size</dt><dd>XS〜XXL</dd><dt>Material</dt><dd>綿 100% / ポリ混紡</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img src="images/body/body-tshirt.webp" alt="Tシャツ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>Tシャツ</h4><div class="body-card-en">T-Shirt</div><dl class="body-card-spec"><dt>Size</dt><dd>120〜XL</dd><dt>Material</dt><dd>綿 100% (5.6oz)</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img src="images/body/body-shorts.webp" alt="ハーフパンツ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>ハーフパンツ</h4><div class="body-card-en">Half Pants</div><dl class="body-card-spec"><dt>Size</dt><dd>XS〜XL</dd><dt>Material</dt><dd>ポリエステル / ストレッチ</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img src="images/body/body-sweat.webp" alt="スウェット（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>スウェット</h4><div class="body-card-en">Sweatshirt</div><dl class="body-card-spec"><dt>Size</dt><dd>S〜XL</dd><dt>Material</dt><dd>裏起毛 / 裏毛</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img class="is-paper-bg" src="images/body/body-jersey.webp" alt="ジャージ上下（加工前ボディ）" width="1120" height="1073" loading="lazy"></div><h4>ジャージ上下</h4><div class="body-card-en">Jersey Set</div><dl class="body-card-spec"><dt>Size</dt><dd>120〜XXL</dd><dt>Material</dt><dd>ポリエステル（ジャージ素材）</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img src="images/body/body-cap.webp" alt="キャップ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>キャップ</h4><div class="body-card-en">Cap</div><dl class="body-card-spec"><dt>Size</dt><dd>FREE</dd><dt>Material</dt><dd>綿 / ポリエステル</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img src="images/body/body-bag.webp" alt="トートバッグ（加工前ボディ）" width="800" height="800" loading="lazy"></div><h4>トートバッグ</h4><div class="body-card-en">Tote Bag</div><dl class="body-card-spec"><dt>Size</dt><dd>S / M / L</dd><dt>Material</dt><dd>キャンバス / コットン</dd></dl></div>
+          <div class="body-card"><div class="body-card-image"><img src="images/body/body-other.webp" alt="その他グッズ（加工前ボディ）" width="800" height="1000" loading="lazy"></div><h4>その他グッズ</h4><div class="body-card-en">Other Goods</div><dl class="body-card-spec"><dt>Item</dt><dd>ポンポン / マフラータオル / 缶バッジ / リュック / ぬいぐるみ 他</dd></dl></div>
+        </div>
+        <div class="body-custom acc-body-custom">
+          <p class="body-custom-title">掲載外もご相談ください</p>
+          <p class="body-custom-text">カラーは自由に、素材も個別に対応いたします。掲載のないアイテムも制作できる場合がございますので、お気軽にお問い合わせください。</p>
         </div>
       </div>
     </div>
@@ -1796,97 +1886,9 @@ img { max-width: 100%; display: block; }
 </section>
 
 <!-- ============================================
-     CASE GALLERY
-     ============================================ -->
-<!-- ============================================
-     CASE GALLERY
-     ============================================ -->
-<!-- ============================================
-     CASE GALLERY
-     ============================================ -->
-<section class="section has-acc" id="case">
-  <div class="container">
-    <div class="section-eyebrow anim">Works</div>
-    <h2 class="section-title anim">制作事例</h2>
-    <div class="section-divider"></div>
-    <p class="section-lead anim">
-      制作した作品はInstagramで随時公開中です。<br>
-      チームごとのデザイン事例をぜひご覧ください。
-    </p>
-
-    <div class="case-content">
-      <div class="insta-head anim">
-        <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-account">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-            <rect x="2" y="2" width="20" height="20" rx="5"/>
-            <circle cx="12" cy="12" r="4.2"/>
-            <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
-          </svg>
-          <span class="insta-handle">@gran.d_shop</span>
-        </a>
-        <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-follow">Follow us</a>
-      </div>
-
-      <div class="insta-scroll anim">
-        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta1.webp" alt="バッグタグ制作事例" loading="lazy"></a>
-        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta2.webp" alt="ぬいぐるみ衣装制作事例" loading="lazy"></a>
-        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta3.webp" alt="タンクトップ制作事例" loading="lazy"></a>
-        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta4.webp" alt="巾着袋制作事例" loading="lazy"></a>
-        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta5.webp" alt="スウェット制作事例" loading="lazy"></a>
-        <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta6.webp" alt="缶バッジ制作事例" loading="lazy"></a>
-      </div>
-      <p class="insta-note">← 横にスクロールできます ／ タップで投稿へ</p>
-    </div>
-
-    <div class="section-acc">
-      <button class="section-acc-trigger" type="button">
-        <span class="section-acc-num">06</span>
-        <span class="section-acc-text">
-          <span class="section-acc-eyebrow">Works</span>
-          <span class="section-acc-title">制作事例</span>
-        </span>
-        <span class="section-acc-icon" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </span>
-      </button>
-
-      <div class="section-acc-body">
-        <div class="section-acc-inner">
-          <p class="acc-lead">
-            制作した作品はInstagramで随時公開中です。タップで投稿をご覧いただけます。
-          </p>
-
-          <div class="insta-head">
-            <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-account">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-                <rect x="2" y="2" width="20" height="20" rx="5"/>
-                <circle cx="12" cy="12" r="4.2"/>
-                <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
-              </svg>
-              <span class="insta-handle">@gran.d_shop</span>
-            </a>
-            <a href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener" class="insta-follow">Follow us</a>
-          </div>
-
-          <div class="insta-scroll">
-            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta1.webp" alt="バッグタグ制作事例" loading="lazy"></a>
-            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta2.webp" alt="ぬいぐるみ衣装制作事例" loading="lazy"></a>
-            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta3.webp" alt="タンクトップ制作事例" loading="lazy"></a>
-            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta4.webp" alt="巾着袋制作事例" loading="lazy"></a>
-            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta5.webp" alt="スウェット制作事例" loading="lazy"></a>
-            <a class="insta-item" href="https://www.instagram.com/gran.d_shop/" target="_blank" rel="noopener"><img src="images/insta/insta6.webp" alt="缶バッジ制作事例" loading="lazy"></a>
-          </div>
-          <p class="insta-note">← 横にスクロールできます</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
      FAQ
      ============================================ -->
-<section class="section alt has-acc">
+<section class="section has-acc">
   <div class="container">
     <div class="section-eyebrow anim">FAQ</div>
     <h2 class="section-title anim">よくあるご質問</h2>
@@ -1903,7 +1905,7 @@ img { max-width: 100%; display: block; }
 
   <div class="section-acc">
     <button class="section-acc-trigger" type="button">
-      <span class="section-acc-num">07</span>
+      <span class="section-acc-num">06</span>
       <span class="section-acc-text">
         <span class="section-acc-eyebrow">FAQ</span>
         <span class="section-acc-title">よくあるご質問</span>
@@ -1962,6 +1964,33 @@ img { max-width: 100%; display: block; }
 
 
 <script>
+// Body types: 3列 横スクロールの矢印・カウンター
+(() => {
+  const grid = document.querySelector("#body-types .body-grid");
+  const nav = document.querySelector("#body-types .body-nav");
+  if (!grid || !nav) return;
+  const cards = [...grid.children];
+  const [prev, next] = nav.querySelectorAll(".body-nav-btn");
+  const count = nav.querySelector(".body-nav-count");
+  const step = () => cards[1] ? cards[1].offsetLeft - cards[0].offsetLeft : grid.clientWidth;
+  const update = () => {
+    const first = Math.round(grid.scrollLeft / step());
+    const perView = Math.max(1, Math.round(grid.clientWidth / step()));
+    const last = Math.min(cards.length, first + perView);
+    count.textContent = (first + 1) + "–" + last + " / " + cards.length;
+    prev.disabled = grid.scrollLeft <= 2;
+    next.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 2;
+  };
+  nav.addEventListener("click", (e) => {
+    const b = e.target.closest(".body-nav-btn"); if (!b) return;
+    const perView = Math.max(1, Math.round(grid.clientWidth / step()));
+    grid.scrollBy({ left: step() * perView * Number(b.dataset.dir) });
+  });
+  grid.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+})();
+
 const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
 // Scroll animations
